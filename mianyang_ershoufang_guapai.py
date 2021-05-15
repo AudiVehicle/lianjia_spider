@@ -19,7 +19,7 @@ def parse_one_page(url, region, csv_writer):
             break
         print('===========================正在下载第{}页数据================================'.format(page))
         time.sleep(1)
-        url = 'https://bh.lianjia.com/ershoufang/' + region + '/pg' + str(page) + '/'
+        url = 'https://mianyang.lianjia.com/ershoufang/' + region + '/pg' + str(page) + '/'
         response = requests.get(url=url, headers=headers)
         selector = parsel.Selector(response.text)
         lis = selector.css('.sellListContent li')
@@ -43,16 +43,16 @@ def parse_one_page(url, region, csv_writer):
 
 
 def main(offset, csv_writer):
-    regions = ['hepuxian', 'haichengqu', 'tieshangangqu', 'yinhaiqu']
+    regions = ['fuchengqu', 'youxianqu', 'anzhouqu', 'jiangyoushi', 'santaixian']
     for region in regions:
         for i in range(1, offset):
-            url = 'https://bh.lianjia.com/ershoufang/' + region + '/pg' + str(i) + '/'
+            url = 'https://mianyang.lianjia.com/ershoufang/' + region + '/pg' + str(i) + '/'
             parse_one_page(url, region, csv_writer)
             time.sleep(1)
         print('{} has been writen.'.format(region))
 
 
-file_name = './data/北海二手房信息_' + str(datetime.date.today()) + '.csv'
+file_name = './data/绵阳二手房信息_' + str(datetime.date.today()) + '.csv'
 f = open(file_name, mode='a', encoding='utf-8-sig', newline='')
 csv_writer = csv.DictWriter(f, fieldnames=['标题', '开发商', '房子信息', '发布周期', '售价/万', '单价'])
 csv_writer.writeheader()
