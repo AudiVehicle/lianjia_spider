@@ -2,6 +2,7 @@ import requests
 import parsel
 import time
 import csv
+import datetime
 
 
 def parse_one_page(url, region, csv_writer):
@@ -51,7 +52,8 @@ def main(offset, csv_writer):
         print('{} has been writen.'.format(region))
 
 
-f = open('./data/二手房信息.csv', mode='a', encoding='utf-8-sig', newline='')
+file_name = './data/二手房信息_' + str(datetime.date.today()) + '.csv'
+f = open(file_name, mode='a', encoding='utf-8-sig', newline='')
 csv_writer = csv.DictWriter(f, fieldnames=['标题', '开发商', '房子信息', '发布周期', '售价/万', '单价'])
 csv_writer.writeheader()
 
